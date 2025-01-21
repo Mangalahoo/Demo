@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Define any environment variables here
+        MY_VARIABLE = 'some-value'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+                checkout scm
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Example build step (Java, Node.js, etc.)
+                echo "Building the project..."
+                // Add your build commands here (e.g., mvn clean install for Java projects)
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Example test step (unit tests, integration tests, etc.)
+                echo "Running tests..."
+                // Add your test commands here
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                // Example deploy step (e.g., deploying to a server or Docker)
+                echo "Deploying the project..."
+                // Add your deploy commands here
+            }
+        }
+    }
+
+    post {
+        always {
+            // This block runs after the pipeline finishes
+            echo "Cleaning up..."
+        }
+        success {
+            // This block runs if the pipeline is successful
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            // This block runs if the pipeline fails
+            echo "Pipeline failed!"
+        }
+    }
+}
