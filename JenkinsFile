@@ -1,55 +1,52 @@
 pipeline {
-    agent any
-    
-    environment {
-        // Define any environment variables here
-        MY_VARIABLE = 'some-value'
-    }
+    agent any  // Defines the environment where the pipeline will run
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the repository
+                // This stage checks out the code from the repository
                 checkout scm
             }
         }
         
         stage('Build') {
             steps {
-                // Example build step (Java, Node.js, etc.)
+                // This stage runs the build process
                 echo "Building the project..."
-                // Add your build commands here (e.g., mvn clean install for Java projects)
+                // Example: You can add a build tool like Maven, Gradle, or NPM
+                // sh 'mvn clean install' // For Java projects
+                // sh 'npm install' // For Node.js projects
             }
         }
-        
+
         stage('Test') {
             steps {
-                // Example test step (unit tests, integration tests, etc.)
+                // This stage runs tests on the code
                 echo "Running tests..."
-                // Add your test commands here
+                // Example: You can run unit tests, integration tests, etc.
+                // sh 'mvn test' // For Java projects
+                // sh 'npm test' // For Node.js projects
             }
         }
-        
+
         stage('Deploy') {
             steps {
-                // Example deploy step (e.g., deploying to a server or Docker)
+                // This stage deploys the project
                 echo "Deploying the project..."
-                // Add your deploy commands here
+                // Example: You can deploy to a server, Docker container, etc.
+                // sh 'kubectl apply -f deployment.yaml' // Example for Kubernetes deployment
             }
         }
     }
 
     post {
         always {
-            // This block runs after the pipeline finishes
-            echo "Cleaning up..."
+            echo "This will always run after the pipeline completes."
         }
         success {
-            // This block runs if the pipeline is successful
-            echo "Pipeline completed successfully!"
+            echo "Pipeline succeeded!"
         }
         failure {
-            // This block runs if the pipeline fails
             echo "Pipeline failed!"
         }
     }
